@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+    <title>登录</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        #loginBoard{
+            position: absolute;
+            background-color: white;
+            height: 500px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            top: 50px;
+            box-shadow: 3px 3px 10px 0px gray;
+            padding: 40px;
+        }
+        .submitButton{
+            text-align: center;
+            background: #FF80AB;
+            width: 100%;
+            border: none;
+            border-radius: 5px;	
+            box-shadow: 1px 1px 1px 0px gray;
+            cursor: pointer;
+            transition: none;
+            display: inline-block;
+            line-height:50px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .submitButton:hover{
+            transition: 0.5s;
+            background: #ec779f;
+        }
+    </style>
+</head>
+
+<script>	
+	$(document).ready(function() {
+		setLoginboardLocation();
+		$(window).resize(setLoginboardLocation);
+        $("#msg_window").hide();
+
+        $("input").keydown(function(event){ 
+            if(event.which == 13){
+                login();
+            }
+        });
+    });
+
+	function setLoginboardLocation() {
+		var wh = window.innerHeight;
+		var ww = window.innerWidth;
+		$("#loginBoard").css("left", (ww / 2) - (400 / 2) + "px");
+	}
+	
+	function reset() {
+		$("#username").val("");
+		$("#pwd").val("");
+	}
+
+    function login() {
+        var username = $("#username").val();
+        var pwd = $("#pwd").val();
+        
+        if(username == "admin" && pwd == "123") {
+            showWindow("登录成功，3秒后自动跳转。<a href='index.html'>如果浏览器没反应，点击这里跳转</a>");
+            setTimeout(() => {
+                location = "index.html";
+            }, 3000);
+        }
+        else{
+            showWindow("用户名或密码不正确，请重新输入。");
+        }
+    }
+
+    function showWindow(msg) {
+        $("#msg_text").html(msg);
+        $("#msg_window").fadeIn();
+        setTimeout(() => {
+            $("#msg_window").fadeOut();
+        }, 1500);
+    }
+	
+</script>
+
+<body style="background-color: #FF80AB;">
+	
+	<div id="loginBoard">
+		<form action="register" method="post">
+			<h1 style="text-align: center;margin-bottom: 10px;">登录</h1>
+			<div>
+				<div class="form-group">
+				      <label for="username">用户名:</label>
+				      <input type="username" class="form-control" id="username" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="pwd">密码:</label>
+				  <input type="password" class="form-control" id="pwd" placeholder="">
+				</div>
+			</div>
+			<a class="submitButton" onclick="login()" style="color: white;">登录</a>
+            <a class="submitButton" onclick="reset()" style="color: white;">清空</a>
+            <a class="submitButton" onclick="javascript:showWindow('暂时不开放注册');" style="color: white;">注册</a>
+		</form>
+	</div>
+	<div id="msg_window" class="alert alert-info alert-dismissible" style="margin: 20px;">
+        <strong id="msg_text">登录成功</strong>
+	</div>
+</body>

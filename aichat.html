@@ -1,0 +1,101 @@
+<head>
+    <title>AI</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var input;
+        var sendButton;
+
+        $(document).ready(() => {
+            input = $("#input");
+            sendButton = $("#sendButton");
+
+            input.focus(() => {
+                sendButton.html("发送");
+            });
+
+            input.focusout(() => {
+                sendButton.html("你不说点什么？");
+            });
+            
+            sendButton.click(() => {
+                if(input.val() == ""){
+                    sendButton.html("你不说点什么？");
+                }
+                else{
+                    send();
+                    input.val("");
+                    $("#textarea").scrollTop($("#textarea")[0].scrollHeight);
+                }
+            });
+
+            $("#reset").click(() => {
+                input.val("");
+            });
+        });
+
+        // AI核心代码，价值一个亿。
+        function send() {
+            var str = $('input').val();
+            textAreaAppend("　　　我：" + str);
+            
+            // 使用AI算法判断如何回复。
+            var echo = str.replace("吗", "").replace("？", "！").replace("?", "！").replace("你", "我");
+            aiEcho(echo);
+        }
+
+        function aiEcho(str){
+            textAreaAppend("小爱同学：" + str);
+        }
+
+        function textAreaAppend(str){
+            var textarea = $("#textarea").val();
+            $("#textarea").html(textarea + str + "\n");
+        }
+    </script>
+    <style>
+        div{
+            padding: 10px;
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">人工智能聊天系统</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#" 
+                    onclick="aiEcho('已经是中文版了！')">中文版</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" 
+                    onclick="aiEcho('在做了，在做了。（进度0%）')">英文版</a>
+            </li>   
+            </ul>
+        </div>  
+    </nav>
+    <br>
+    <h1 style="text-align: center;"></h1>
+    <div>
+        <textarea id="textarea" class="form-control" cols="50" rows="20" style="width: 100%;" readonly></textarea>
+    </div>
+    <div>
+        <input id="input" type="text" class="form-control" placeholder="在这里输入要发送的消息"
+            style="display: inline; width: 100%;">
+    </div>
+    <div>
+        <button id="sendButton" type="button" class="btn btn-success" style="width: 100%; height: 50px;">你不说点什么？</button>
+    </div>
+    <div>
+        <button id="reset" type="button" class="btn btn-secondary" style="width: 100%; height: 50px;">清空</button>
+    </div>
+</body>
+
