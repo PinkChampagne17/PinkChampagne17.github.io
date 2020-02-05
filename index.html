@@ -5,6 +5,24 @@
         <meta name="theme-color" content="fb7299">
         <title>PinkChampagne's HomePage</title>
     </head>
+    <script>
+        var aka = getQueryString('aka');
+        if(aka){
+            var jsons = [
+                {path: 'sm',redirectTo: './studentmanagement/'}
+            ];
+            var route = jsons.find(route => route.path === aka);
+            if(route){
+                window.location.href = route.redirectTo + 'index.html';
+            }
+        };
+        function getQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+    </script>
     <style type="text/css">
         div{
             font-size: 20px;
