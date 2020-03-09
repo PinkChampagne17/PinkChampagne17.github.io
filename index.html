@@ -1,65 +1,116 @@
 <!DOCTYPE html>
 <html lang="zh">
     <head>
-        <meta charset="UTF-8">
-        <meta name="theme-color" content="fb7299">
-        <title>PinkChampagne's HomePage</title>
-    </head>
-    <script>
-        var aka = getQueryString('aka');
-        if(aka){
-            var jsons = [
-                {path: 'sm',redirectTo: './studentmanagement/'}
-            ];
-            var route = jsons.find(route => route.path === aka);
-            if(route){
-                window.location.href = route.redirectTo + 'index.html';
+        <title>PinkChampagne17's website</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="theme-color" content="#fb7299">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <style>
+            body {
+                background-color: #fff;
+                margin: 0px;
+                overflow: hidden;
+                font-family:arial;
+                color:#fff;
             }
-        };
-        function getQueryString(name)
-        {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if(r!=null)return  unescape(r[2]); return null;
-        }
-    </script>
-    <style type="text/css">
-        div{
-            font-size: 20px;
-            text-align: center;
-            text-shadow: black 0.1em 0.1em 0.2em;
-            font-family: 微软雅黑;
-            color:#ffffff;
-            margin-top: 100px;
-        }
-        html{
-            background:
-                url(https://priconne-redive.jp/ele-wp/wp-content/themes/redive/images/shared/loading/bg-loading.gif);
-        }
-        img{
-            width:150px;
-            height: 150px;
-        }
-        img:hover{
-            width:300px;
-            height: 300px;
-            transition-duration: 2s;
-        }
-        [href]{
-            color:#ffffff;
-        }
-    </style>
+            #canvas {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                position:absolute;
+                top:0;
+                left:0;
+                background-color: #1a1724;               
+            }
+            div.canvas-content {
+                position:relative;
+                z-index:2000;
+                color:#fff;
+                text-align:center;
+                padding-top:30px;
+            }
+            /* quare card */
+            .demo-card-square.mdl-card {
+                width: 386px;
+                height: 595px;
+            }
+            .demo-card-square > .mdl-card__title {
+                color: #fff;
+                background:
+                    url('static/img/avatar.png') center / cover;
+            }
+        </style>
+    </head>
     <body>
-        <div>
-            <a href="https://www.bilibili.com/video/av78141844">
-                <img src="1.png" width="100px" height="100px">
-            </a>
-            <br>
-            <a href="https://priconne-redive.jp/">Pink Champagne</a>
-            <br>
-            <h1>Welcome to My HomePage</h1>
-            <p>↑ 点击我的头像可感受自由 ↑</p>
-            <p>↑ 点击我的名字可和我一起Van♂you♂xi ↑</p>
+        <div class="canvas-content">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp" style="margin: 0 auto;">
+                <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text" style="text-shadow: black 0.1em 0.1em 0.2em; padding: 6px;">PinkChampagne17</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    Welcome to my personal website.
+                </div>
+                <div id="menu">
+                    <select-item
+                        v-for="select in selects"
+                        v-bind:select="select"
+                    ></select-item>
+                </div>
+            </div>
         </div>
+        <div id="canvas" class="gradient"></div>
     </body>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+    <script src="js/color.js"></script>
+    <script src="js/three.min.js"></script>
+    <script src="js/projector.js"></script>
+    <script src="js/canvas-renderer.js"></script>
+    <script src="js/3d-lines-animation.js"></script>
+    <script>
+        Vue.component('select-item', {
+            props: ['select'],
+            template: 
+            `
+            <div class="mdl-card__actions mdl-card--border">
+                <a v-bind:id="select.id" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    v-bind:href="select.href" target="_blank">
+                    {{ select.text }}
+                </a>
+                <div class="mdl-tooltip" v-bind:data-mdl-for="select.id">
+                    {{ select.tooltip }}
+                </div>
+            </div>
+            `
+        })
+
+        var menu = new Vue({
+            el: '#menu',
+            data: {
+                selects: [
+                    {
+                        id: 0,
+                        href: "www.bilibili.com/av84307854",
+                        text: "Feel freedom with me",
+                        tooltip: "www.bilibili.com/av84307854"
+                    },
+                    {
+                        id: 1,
+                        href: "https://priconne-redive.jp/",
+                        text: "Van you see with me",
+                        tooltip: "Princess Connect! Re:Dive"
+                    },
+                    {
+                        id: 2,
+                        href: "https://huashuishuati.github.io/",
+                        text: "Look at my app",
+                        tooltip: "HuaShuiShuaTi"
+                    }
+                ]
+            }
+        })
+    </script>
 </html>
