@@ -1,0 +1,30 @@
+{
+    "desription": "Welcome to my personal website.",
+    "selects":
+    [
+        {
+            "id": 0,
+            "href": "https://www.bilibili.com/av84307854",
+            "text": "Feel freedom with me",
+            "tooltip": "www.bilibili.com/av84307854"
+        },
+        {
+            "id": 1,
+            "href": "https://priconne-redive.jp/",
+            "text": "Play game with me",
+            "tooltip": "プリンセスコネクト！Re:Dive (プリコネR) 公式サイト"
+        },
+        {
+            "id": 2,
+            "href": "https://github.com/PinkChampagne17",
+            "text": "Look at my GitHub",
+            "tooltip": "GitHub@PinkChampagne17"
+        },
+        {
+            "id": 3,
+            "href": "https://huashuishuati.github.io/",
+            "text": "Look at my app",
+            "tooltip": "HuaShuiShuaTi"
+        }
+    ]
+}

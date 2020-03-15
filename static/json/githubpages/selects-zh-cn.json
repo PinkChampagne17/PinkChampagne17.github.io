@@ -1,0 +1,29 @@
+{
+    "desription": "欢迎来到我的个人网页。",
+    "selects": [
+        {
+            "id": 0,
+            "href": "https://www.bilibili.com/av84307854",
+            "text": "和我一起感受自由",
+            "tooltip": "www.bilibili.com/av84307854"
+        },
+        {
+            "id": 1,
+            "href": "https://priconne-redive.jp/",
+            "text": "和我一起Van ♂ 游 ♂ 戏",
+            "tooltip": "プリンセスコネクト！Re:Dive (プリコネR) 公式サイト"
+        },
+        {
+            "id": 2,
+            "href": "https://github.com/PinkChampagne17",
+            "text": "康康我的GitHub",
+            "tooltip": "GitHub@PinkChampagne17"
+        },
+        {
+            "id": 3,
+            "href": "https://huashuishuati.github.io/",
+            "text": "康康我的app",
+            "tooltip": "HuaShuiShuaTi"
+        }
+    ]
+}
