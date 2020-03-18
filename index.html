@@ -88,7 +88,9 @@
         `
     })
 
-    var selects = [];
+    var selects = []
+    var selectsHasLoaded = false
+    var numberOfselectExcludeSwitchLanguage = 0
 
     var card = new Vue({
         el: '#vue-card',
@@ -97,49 +99,53 @@
             desription: "Desription is loading..."
         }
     })
-    
-    var jsonUrl = "./static/json/githubpages"
 
-    setLanguage(`${jsonUrl}/selects-en.json`)
+    setLanguage(`./static/json/githubpages/selects-en.json`)
 
     function setLanguage(url)
     {
-        selectLoading()
+        if (selectsHasLoaded)
+        {
+            card.desription = "Desription is loading..."
+            for (let i = 0; i < numberOfselectExcludeSwitchLanguage; i++) {
+                selects[i].text = selects[i].tooltip = "Loading...";
+            }
+        }
 
         $.getJSON(url, (responseJson) =>
         {
-            clearSelects()
-
             card.desription = responseJson.desription
 
-            responseJson.selects.forEach(item =>
-            {
-                selects.push(item);
-            })
+            let responseSelects = responseJson.selects
 
-            $.getJSON(`${jsonUrl}/languageList.json`, (responseJson) =>
+            numberOfselectExcludeSwitchLanguage = responseSelects.length
+
+            if (selectsHasLoaded)
             {
-                responseJson.forEach(item =>
+                for (let i = 0; i < responseSelects.length; i++) {
+                    selects[i].text = responseSelects[i].text
+                    selects[i].tooltip = responseSelects[i].tooltip
+                }
+            }
+            else
+            {
+                responseJson.selects.forEach(item =>
                 {
-                    item.onclick = `setLanguage('${jsonUrl}/selects-${item.id}.json')`
                     selects.push(item)
                 })
-            })
+
+                $.getJSON(`./static/json/githubpages/languageList.json`, (responseJson) =>
+                {
+                    responseJson.forEach(item =>
+                    {
+                        item.onclick = `setLanguage('./static/json/githubpages/selects-${item.id}.json')`
+                        selects.push(item)
+                    })
+                })
+
+                selectsHasLoaded = true
+            }
         })
-    }
-
-    function clearSelects()
-    {
-        while (selects.length != 0)
-        {
-            selects.pop()
-        }
-    }
-
-    function selectLoading()
-    {
-        clearSelects()
-        selects.push({ text: "加載中" })
     }
 
 </script>
