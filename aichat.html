@@ -6,11 +6,12 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script>
         var input;
-        var sendButton;
+        var textarea;
 
         $(document).ready(() => {
             input = $("#input");
-            sendButton = $("#sendButton");
+            textarea = $("#textarea");
+            let sendButton = $("#sendButton");
 
             input.focus(() => {
                 sendButton.html("发送");
@@ -21,13 +22,13 @@
             });
             
             sendButton.click(() => {
-                if(input.val() == ""){
-                    sendButton.html("你不说点什么？");
+                if(input.val().trim() == ""){
+                    alert("不能发送空白内容");
                 }
                 else{
                     send();
                     input.val("");
-                    $("#textarea").scrollTop($("#textarea")[0].scrollHeight);
+                    textarea.scrollTop(textarea[0].scrollHeight);
                 }
             });
 
@@ -38,25 +39,28 @@
 
         // AI核心代码，价值一个亿。
         function send() {
-            var str = $('input').val();
+            let str = $('input').val();
             textAreaAppend("　　　我：" + str);
             
             // 使用AI算法判断如何回复。
-            var echo = str.replace("吗", "").replace("？", "！").replace("?", "！").replace("你", "我");
-            aiEcho(echo);
+            let echoText = str.replace("吗", "")
+                                .replace("？", "！")
+                                .replace("?", "！")
+                                .replace("你", "我");
+            aiEcho(echoText);
         }
 
-        function aiEcho(str){
+        function aiEcho(str) {
             textAreaAppend("小爱同学：" + str);
         }
 
-        function textAreaAppend(str){
-            var textarea = $("#textarea").val();
-            $("#textarea").html(textarea + str + "\n");
+        function textAreaAppend(str) {
+            let textAreaValue = textarea.val();
+            textarea.html(textAreaValue + str + "\n");
         }
     </script>
     <style>
-        div{
+        div {
             padding: 10px;
             width: 80%;
             margin: auto;
@@ -71,14 +75,14 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#" 
-                    onclick="aiEcho('已经是中文版了！')">中文版</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" 
-                    onclick="aiEcho('在做了，在做了。（进度0%）')">英文版</a>
-            </li>   
+                <li class="nav-item">
+                    <a class="nav-link" href="#" 
+                        onclick="aiEcho('已经是中文版了！')">中文版</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" 
+                        onclick="aiEcho('在做了，在做了。（进度0%）')">英文版</a>
+                </li>   
             </ul>
         </div>  
     </nav>
